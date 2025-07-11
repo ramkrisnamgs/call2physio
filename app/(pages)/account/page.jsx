@@ -309,19 +309,36 @@ export default function AccountPage() {
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="w-full md:max-w-fit flex flex-col md:flex-row items-center justify-end gap-4">
+            <Link
+            className="w-full"
+                href={
+                  userData?.role === "physio"
+                    ? "/physio"
+                    : userData?.role === "admin"
+                    ? "/admin"
+                    : "/patient"
+                }
+              >
+              <Button
+                // onPress={handlePasswordReset}
+                className="w-full border border-[#35B6B4] text-[#003A70] px-6 py-2 rounded-lg hover:bg-[#35B6B4] hover:text-white transition-all ease-in-out duration-300 cursor-pointer"
+              >
+                Dashboard
+              </Button>
+              </Link>
               {isEditing ? (
                 <>
                   <Button
                     onPress={handleSubmit(handleUpdateProfile)}
                     isLoading={isUpdating}
-                    className="bg-[#003A70] text-white px-6 py-2 rounded-lg hover:bg-[#002a50] transition-colors cursor-pointer"
+                    className="w-full bg-[#003A70] text-white px-6 py-2 rounded-lg hover:bg-[#002a50] transition-colors cursor-pointer"
                   >
                     Save Changes
                   </Button>
                   <Button
                     onPress={handleCancelEdit}
-                    className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors cursor-pointer"
+                    className="w-full bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors cursor-pointer"
                   >
                     Cancel
                   </Button>
@@ -329,22 +346,16 @@ export default function AccountPage() {
               ) : (
                 <Button
                   onPress={() => setIsEditing(true)}
-                  className="bg-[#003A70] text-white px-6 py-2 rounded-lg hover:bg-[#002a50] transition-colors cursor-pointer"
+                  className="w-full bg-[#003A70] text-white px-6 py-2 rounded-lg hover:bg-[#002a50] transition-colors cursor-pointer"
                 >
                   Edit Profile
                 </Button>
               )}
               <Button
                 onPress={handlePasswordReset}
-                className="bg-[#35B6B4] text-white px-6 py-2 rounded-lg hover:bg-[#2a8f8d] transition-colors"
+                className="w-full bg-[#35B6B4] text-white px-6 py-2 rounded-lg hover:bg-[#2a8f8d] transition-colors"
               >
                 Reset Password
-              </Button>
-              <Button
-                onPress={handlePasswordReset}
-                className="border border-[#35B6B4] text-[#003A70] px-6 py-2 rounded-lg hover:bg-[#35B6B4] hover:text-white transition-all ease-in-out duration-300 cursor-pointer"
-              >
-                Settings
               </Button>
             </div>
           </div>

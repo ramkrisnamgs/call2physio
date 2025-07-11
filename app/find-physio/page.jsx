@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 export default function FindPhysioPage() {
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState({ 
     location: "",
     specializations: [],
     visitPreference: "",

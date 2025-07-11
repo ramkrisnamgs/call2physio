@@ -76,7 +76,10 @@ const Footer = () => {
                   ].map((service, index) => (
                     <li key={index} className="text-sm text-gray-300 group">
                       <Link
-                        href={`/services/${service.toLowerCase().replace(/\s+/g, '-')}`}
+                        href={`/services/${service
+                          .toLowerCase()
+                          .replace('physiotherapy at', 'physio-at')
+                          .replace(/\s+/g, '-')}`}
                         className="text-sm text-gray-300 hover:text-[#35B6B4] transition-colors duration-300 flex items-center gap-2"
                       >
                         <span className="w-0 group-hover:w-2 h-[2px] bg-[#35B6B4] transition-all duration-300"></span>

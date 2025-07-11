@@ -280,3 +280,7 @@ npm start
 
 ## Contact
 [Add your contact information]
+
+## Physio
+// Physio login>account
+Physio Dashboard >> route >> /physio/dashboard
