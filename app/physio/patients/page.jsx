@@ -1,6 +1,6 @@
 "use client";
 import { useAuth } from "@/contexts/AuthContext";
-import { getPatientsByPhysio } from "@/lib/firebase/patients/read";
+import { getPatientsByPhysio } from "@/lib/firebase/patient/read";
 import { useEffect, useState } from "react";
 import PatientsTable from "./components/PatientsTable";
 import PatientSearchBar from "./components/PatientSearchBar";
@@ -58,12 +58,12 @@ export default function PatientsPage() {
     const term = search.trim().toLowerCase();
     if (!term)
       return setFiltered(
-        patients.filter((p) => p.name.toLowerCase().includes(term))
+        patients.filter((p) => p?.name.toLowerCase().includes(term))
       );
   }, [search, patients]);
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
+    <div className="max-w-5xl mx-auto py-10 px-10">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
           <h2 className="text-3xl font-bold text-[#003A70]">Patients</h2>

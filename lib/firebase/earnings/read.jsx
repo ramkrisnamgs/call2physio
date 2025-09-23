@@ -1,5 +1,5 @@
 import { db } from "@/lib/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 
 // Fetch all earnings entries for a specific physio
 export async function fetchEarningsByPhysioId(physioId) {

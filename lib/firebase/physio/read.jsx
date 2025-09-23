@@ -11,21 +11,68 @@ import {
 import { getDownloadURL, listAll, ref } from "firebase/storage";
 import useSWRSubscription from "swr/subscription";
 
+// Get all physio (approved + unapproved)
+export async function getAllPhysios() {
+  const q = query(collection(db, "user"), where("role", "==", "physio"));
+  const snap = await getDocs(q);
+  return snap.docs.map((doc) => ({ uid: doc.id, ...doc.data() }));
+}
+
+// Get only pending Physios
+export async function getPendingPhysios() {
+  const q = query(
+    collection(db, "user"),
+    where("role", "==", "physio"),
+    where("isApproved", "==", false)
+  );
+  const snap = await getDocs(q);
+  return snap.docs.map((doc) => ({ uid: doc.id, ...doc.data() }))
+}
+
+// Get single Physio docs
+export async function getPhysioDocuments(uid) {
+  try {
+    const folderRef = ref(storage, `physio_docs/${uid}`);
+    const listResult = await listAll(folderRef);
+    const docs = Promise.all(
+      listResult.items.map(async (item) => ({
+        name: item.name,
+        url: await getDownloadURL(item),
+      }))
+    )
+    return docs;
+  } catch (error) {
+    console.error("Error fetching Physios documents: ", error);
+    throw error;
+  }
+}
+
+// Get single physio details
+export async function getPhysioById(uid) {
+  const refDoc = doc(db, "user", uid);
+  const snap = await getDocs(refDoc);
+  return snap.exists() ? snap.data() : null;
+}
+
+
 // Realtime hook to get physio data
 export function usePhysioData(uid) {
-  const { data, error } = useSWRSubscription(["physio", uid], ([_, uid], { next }) => {
-    const ref = doc(db, "user", uid);
-    const unsubscribe = onSnapshot(
-      ref,
-      (snapshot) => {
-        next(null, snapshot.exists() ? snapshot.data() : null);
-      },
-      (err) => {
-        next(err);
-      }
-    );
-    return () => unsubscribe();
-  });
+  const { data, error } = useSWRSubscription(
+    ["physio", uid],
+    ([_, uid], { next }) => {
+      const ref = doc(db, "user", uid);
+      const unsubscribe = onSnapshot(
+        ref,
+        (snapshot) => {
+          next(null, snapshot.exists() ? snapshot.data() : null);
+        },
+        (err) => {
+          next(err);
+        }
+      );
+      return () => unsubscribe();
+    }
+  );
   return {
     physioData: data,
     isLoading: data === undefined,
@@ -45,11 +92,11 @@ export async function getApprovedPhysios() {
 }
 
 // One-time fetch by UID
-export async function getPhysioById(uid) {
-  const ref = doc(db, "user", uid);
-  const snap = await getDoc(ref);
-  return snap.exists() ? snap.data() : null;
-}
+// export async function getPhysioById(uid) {
+//   const ref = doc(db, "user", uid);
+//   const snap = await getDoc(ref);
+//   return snap.exists() ? snap.data() : null;
+// }
 
 // List all Physio's document
 export const listPhysioFiles = async (uid) => {
@@ -73,10 +120,10 @@ export const listPhysioFiles = async (uid) => {
   }
 };
 
-
 export async function getPhysioOverview(uid) {
   const appointmentsQuery = query(
-    collection(db, "appointments"), where("physioId", "==", uid)
+    collection(db, "appointments"),
+    where("physioId", "==", uid)
   );
   const appointmentsSnap = await getDocs(appointmentsQuery);
   const totalAppointments = appointmentsSnap.size;
@@ -95,7 +142,7 @@ export async function getPhysioOverview(uid) {
     avgRating: physio.rating ?? 4.5,
     experience: physio.experience ?? "N/A",
     isApproved: physio.isApproved ?? false,
-  }
+  };
 }
 
 // import { db, storage } from "@/lib/firebase";

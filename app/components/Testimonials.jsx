@@ -152,11 +152,11 @@ const Testimonials = () => {
           <div className="absolute right-0 -top-12 md:-top-15 mr-5 md:mr-0 z-10 flex gap-2">
             <button
               onClick={() => swiperRef.current?.slidePrev()}
-              className="!static !w-8 !h-8 md:!w-10 md:!h-10 !m-0 bg-white flex items-center justify-center rounded-full shadow-md hover:bg-gray-100 transition-all duration-300"
+              className="!static !w-8 !h-8 md:!w-10 md:!h-10 !m-0 bg-white flex items-center justify-center rounded-full shadow-md hover:bg-gray-100 active:bg-[#1b5c98] active:scale-90 active:shadow-inner transition-all duration-300 cursor-pointer"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 md:h-6 md:w-6 text-[#1b5c98]"
+                className="h-4 w-4 md:h-6 md:w-6 text-[#1b5c98] active:text-white transition-all duration-300"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -171,11 +171,11 @@ const Testimonials = () => {
             </button>
             <button
               onClick={() => swiperRef.current?.slideNext()}
-              className="!static !w-8 !h-8 md:!w-10 md:!h-10 !m-0 bg-white flex items-center justify-center rounded-full shadow-md hover:bg-gray-100 transition-all duration-300"
+              className="!static !w-8 !h-8 md:!w-10 md:!h-10 !m-0 bg-white flex items-center justify-center rounded-full shadow-md hover:bg-gray-100 active:bg-[#1b5c98] active:scale-90 active:shadow-inner transition-all duration-300 cursor-pointer"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 md:h-6 md:w-6 text-[#1b5c98]"
+                className="h-4 w-4 md:h-6 md:w-6 text-[#1b5c98] active:text-white transition-all duration-300"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

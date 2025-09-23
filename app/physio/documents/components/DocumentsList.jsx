@@ -5,7 +5,8 @@ import {
   deletePhysioFile,
   getDownloadURLForPhysioDoc,
 } from "@/lib/firebase/physio/write";
-import { Plus, X } from "lucide-react";
+import { Button } from "@heroui/react";
+import { Eye, Plus, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -39,7 +40,14 @@ export default function DocumentsList({ uid, files, loading, refreshFiles }) {
     }
   };
 
-  if (loading) return <p>Loading documents...</p>;
+  if (loading) return (
+    <div className="flex items-center justify-center py-8 bg-gray-50 rounded shadow-inner">
+      <div className="flex flex-col items-center space-y-3">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-4 border-[#35B6B4]"></div>
+        <p className="text-gray-500 text-sm">Loading documents...</p>
+      </div>
+    </div>
+  );
 
   return (
     <div className="space-y-4">
@@ -109,22 +117,23 @@ export default function DocumentsList({ uid, files, loading, refreshFiles }) {
                   </td>
                   <td className="py-2 px-4">
                     <div className="flex gap-2">
-                      <button
+                      <Button
                         onClick={() => handleDownload(file)}
-                        className="inline-flex items-center px-3 py-1 text-xs font-semibold text-white bg-blue-500 hover:bg-blue-600 rounded transition"
+                        className="inline-flex items-center px-2 py-1 text-xs font-semibold text-white bg-[#35B6B4] hover:bg-[#003A70] rounded transition-all delay-200 cursor-pointer"
                         title="View or Download"
                       >
-                        <Plus size={16} />
-                        View
-                      </button>
-                      <button
+                        {/* <Plus size={20} /> */}
+                        <Eye size={20} />
+                        {/* View */}
+                      </Button>
+                      <Button
                         onClick={() => handleDelete(file.name)}
-                        className="inline-flex items-center px-3 py-1 text-xs font-semibold text-white bg-red-500 hover:bg-red-600 rounded transition"
+                        className="inline-flex items-center px-2 py-1 text-xs font-semibold text-white bg-red-500 hover:bg-red-600 rounded transition cursor-pointer"
                         title="Delete"
                       >
-                        <X />
-                        Delete
-                      </button>
+                        <Trash2  size={20} />
+                        {/* Delete */}
+                      </Button>
                     </div>
                   </td>
                 </tr>

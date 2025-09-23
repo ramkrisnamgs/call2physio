@@ -27,7 +27,7 @@ export default function PhysioDashboard() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 space-y-10">
+    <div className="max-w-5xl mx-auto py-10 px-10 space-y-10">
       {/* Show subtle banner if not approved */}
       <VerificationBanner />
 

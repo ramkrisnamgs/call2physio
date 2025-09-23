@@ -13,24 +13,18 @@ export default function Layout({ children }) {
   const { data: userData, isLoading } = useUser({ uid: user?.uid });
   const router = useRouter();
 
+  // if user is not authenticated or not a physio, redirect to home page
   useEffect(() => {
-    if (!isLoading) {
-      if (
-        !userData ||
-        userData.role !== "physio"
-        // || !userData.isApproved
-      ) {
-        toast.error("Access Denied: Only approved physio's are allowed");
-        router.push("/");
-      }
+    if (!isLoading && (!userData || userData.role !== "physio")) {
+      toast.error("Access Denied: Only approved physio's are allowed");
+      router.push("/");
     }
-  }, [isLoading, userData]);
+  }, [isLoading, userData, router]);
 
   if (isLoading) {
     return (
       <div className="w-full min-h-screen flex flex-col items-center justify-center">
         <div className="flex flex-col items-center">
-          {/* Modern CSS loader */}
           <div
             className="loader mb-8"
             style={{
@@ -50,28 +44,33 @@ export default function Layout({ children }) {
             Loading your Physio Dashboard
           </div>
           <div className="text-sm text-[#35B6B4] font-medium flex items-center gap-2">
-            <svg className="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 16 16">
-              <circle cx="8" cy="8" r="8" fill="#35B6B4" opacity="0.2"/>
-              <path d="M8 3v6l4 2" stroke="#35B6B4" strokeWidth="2" strokeLinecap="round"/>
+            <svg
+              className="w-4 h-4 animate-bounce"
+              fill="none"
+              viewBox="0 0 16 16"
+            >
+              <circle cx="8" cy="8" r="8" fill="#35B6B4" opacity="0.2" />
+              <path
+                d="M8 3v6l4 2"
+                stroke="#35B6B4"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
             </svg>
             Please wait while we prepare your experience...
           </div>
         </div>
         <style jsx global>{`
           @keyframes l25 {
-            100% { transform: rotate(1turn); }
+            100% {
+              transform: rotate(1turn);
+            }
           }
         `}</style>
       </div>
     );
-  }
-  if (!userData || userData.role !== "physio") {
-    return (
-      <div className="w-full min-h-screen flex items-center justify-center">
-        Access Denied
-      </div>
-    );
-  }
+  }  
+
   return (
     <div>
       <Header />
@@ -80,7 +79,8 @@ export default function Layout({ children }) {
         <h1 className="text-xl font-bold">
           {userData?.role
             ? userData.role.charAt(0).toUpperCase() + userData.role.slice(1)
-            : ""} Dashboard
+            : ""}{" "}
+          Dashboard
         </h1>
         <div className="flex items-center gap-4 bg-[#003A70]/80 border border-white px-4 py-2 rounded-lg shadow">
           {userData?.photoURL ? (

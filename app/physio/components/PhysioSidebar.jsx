@@ -35,7 +35,10 @@ export default function PhysioSidebar() {
     <>
       {/* Desktop Sidebar */}
       <div className="hidden md:flex min-h-screen w-64 bg-white shadow-lg flex-col">
-        <div className="p-6 text-xl font-bold text-[#35B6B4]">Call2Physio</div>
+        <div className="px-8 py-6 text-xl font-bold text-[#35B6B4]">
+          {/* Call2Physio */}
+          Nexorah
+        </div>
         <nav className="flex-1 space-y-2 px-2">
           {links.map(({ href, label, icon }) => (
             <Link
@@ -75,12 +78,19 @@ export default function PhysioSidebar() {
             </Link>
           ))}
         </nav>
-        <button
-          onClick={logout}
+        {/* <button
+          onClick={() => {
+            try {
+              logout();
+              window.href = "/login";
+            } catch (error){
+              console.error("Logout failed:", error);
+            }
+          }}
           className="m-6 mt-auto flex items-center gap-3 text-sm text-red-500 hover:bg-red-50 p-3 rounded cursor-pointer"
         >
           <LogOut /> Logout
-        </button>
+        </button> */}
       </div>
 
       {/* Mobile Bottom Navigation */}
@@ -114,7 +124,7 @@ export default function PhysioSidebar() {
               )}
             </Link>
           ))}
-          <button
+          {/* <button
             onClick={logout}
             className="flex flex-col items-center justify-center px-4 py-1 text-xs font-medium text-red-500 hover:bg-red-50 rounded flex-shrink-0"
             style={{ minWidth: 64 }}
@@ -123,7 +133,7 @@ export default function PhysioSidebar() {
               <LogOut />
             </span>
             <span>Logout</span>
-          </button>
+          </button> */}
         </div>
       </nav>
     </>

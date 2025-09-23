@@ -8,6 +8,38 @@ import {
   uploadBytes,
 } from "firebase/storage";
 
+// Approve Physio
+export async function approvePhysio(uid) {
+  const ref = doc(db, "user", uid);
+  await updateDoc(ref, {
+    isApproved: true,
+    status: "Approved",
+    approvedAt: serverTimestamp(),
+  });
+};
+
+// Reject Physio (optional: delete account)
+export async function rejectPhysio(uid) {
+    const ref = doc(db, "user", uid);
+    await updateDoc(ref, {
+      isApproved: false,
+      status: "Rejected",
+      rejected: true,
+      rejectedAt: serverTimestamp(),
+    })
+}
+
+// Suspend physio
+export async function suspendPhysio(uid) {
+  const ref = doc(db, "user", uid);
+  await updateDoc(ref, {
+    isApproved: false,
+    status: "Suspended",
+    isSuspended: true,
+    suspendedAt: serverTimestamp(),
+  })
+}
+
 //Upload file to Storage
 export const uploadPhysioFile = async (uid, file) => {
   const fileRef = ref(storage, `physio_docs/${uid}/${file.name}`);

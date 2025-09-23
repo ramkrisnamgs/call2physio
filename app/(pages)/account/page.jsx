@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import ProfilePhotoUploader from "./components/ProfilePhotoUploader";
 import Header from "@/app/components/Header";
-import { Edit, Home, Pen, User } from "lucide-react";
+import { Edit, Home, Pen, TriangleAlert, User } from "lucide-react";
 import Footer from "@/app/components/Footer";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -108,8 +108,6 @@ export default function AccountPage() {
     }
   }, [userData, userLoading, router]);
 
-
-
   // Watch firstName, lastName, and location fields for display in profile header
   const watchedFirstName = watch("firstName");
   const watchedLastName = watch("lastName");
@@ -128,6 +126,7 @@ export default function AccountPage() {
         location: `${userData.address?.city || ""}${
           userData.address?.city && userData.address?.country ? ", " : ""
         }${userData.address?.country || ""}`, // Populate location
+        // fees: userData.fees || "",
         postalCode: userData.address?.pincode || "", // Populate postalCode
         gender: userData.gender || "",
         dob: userData.dob || "",
@@ -148,14 +147,15 @@ export default function AccountPage() {
     }
   }, [userData, reset]);
 
-    // if user is not Logged in
-    if (!userData) {
-      return (
-        <div>
-          <Header />
-          <div className="min-h-[70vh] flex flex-col items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8">
-            <div className="animate-bounce mt-,4">
-              <svg
+  // if user is not Logged in
+  if (!userData) {
+    return (
+      <div>
+        <Header />
+        <div className="min-h-[70vh] flex flex-col items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8">
+          <div className="animate-bounce mt-,4">
+            <TriangleAlert color="#003A70" size={96} />
+            {/* <svg
                 className="w-12 h-12 sm:w-16 sm:h-16 text-[#35B6B4]"
                 fill="none"
                 stroke="currentColor"
@@ -167,36 +167,36 @@ export default function AccountPage() {
                   strokeWidth="2"
                   d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
                 />
-              </svg>
-            </div>
-            <div className="text-center space-y-4 max-w-md mx-auto">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#003A70]">
-                You are not Logged In!!
-              </h1>
-              <p className="text-base sm:text-lg text-gray-600">
-                Please log in to view your account details
-              </p>
-  
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
-                <Link href="/login" className="w-full sm:w-auto">
-                  <Button className="w-full sm:w-auto bg-[#35B6B4] hover:bg-[#2a8f8d] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg transition-all duration-300 flex items-center justify-center gap-2">
-                    <User size={18} />
-                    Login
-                  </Button>
-                </Link>
-                <Link href="/" className="w-full sm:w-auto">
-                  <Button className="w-full sm:w-auto bg-[#003A70] hover:bg-[#002a50] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg transition-all duration-300 flex items-center justify-center gap-2">
-                    <Home size={18} />
-                    Home
-                  </Button>
-                </Link>
-              </div>
+              </svg> */}
+          </div>
+          <div className="text-center space-y-4 max-w-md mx-auto">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#003A70]">
+              You are not Logged In!!
+            </h1>
+            <p className="text-base sm:text-lg text-gray-600">
+              Please log in to view your account details
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
+              <Link href="/login" className="w-full sm:w-auto">
+                <Button className="w-full sm:w-auto bg-[#35B6B4] hover:bg-[#2a8f8d] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg transition-all duration-300 flex items-center justify-center gap-2">
+                  <User size={18} />
+                  Login
+                </Button>
+              </Link>
+              <Link href="/" className="w-full sm:w-auto">
+                <Button className="w-full sm:w-auto bg-[#003A70] hover:bg-[#002a50] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg transition-all duration-300 flex items-center justify-center gap-2">
+                  <Home size={18} />
+                  Home
+                </Button>
+              </Link>
             </div>
           </div>
-          <Footer />
         </div>
-      ); // Return null while redirecting
-    }
+        <Footer />
+      </div>
+    ); // Return null while redirecting
+  }
 
   const handleUpdateProfile = async (data) => {
     setIsUpdating(true);
@@ -223,6 +223,7 @@ export default function AccountPage() {
         address: data.address,
         // Include location and postalCode as separate fields in Firestore
         location: data.location,
+        // fees: data.fees,
         postalCode: data.postalCode,
       };
 
@@ -298,20 +299,28 @@ export default function AccountPage() {
                     {userData?.role}
                   </p>
                 </div>
-                <p className="text-gray-600">
-                  {watchedLocation ||
-                    `${userData?.address?.city || ""}${
-                      userData?.address?.city && userData?.address?.country
-                        ? ", "
-                        : ""
-                    }${userData?.address?.country || ""}`}
-                </p>
+                <div className="flex gap-4">
+                  {/* <p className="px-5 py-1 flex items-center justify-center text-sm font-medium bg-[#35B6B4]/10 text-[#003A70] rounded-md">
+                    {userData?.role}
+                  </p> */}
+                  <p className="text-gray-600">
+                    {watchedLocation ||
+                    userData?.address?.city ||
+                    userData?.address?.country
+                      ? `${userData?.address?.city || ""}${
+                          userData?.address?.city && userData?.address?.country
+                            ? ", "
+                            : ""
+                        }${userData?.address?.country || ""}`
+                      : "-"}
+                  </p>
+                </div>
               </div>
             </div>
 
             <div className="w-full md:max-w-fit flex flex-col md:flex-row items-center justify-end gap-4">
-            <Link
-            className="w-full"
+              <Link
+                className="w-full"
                 href={
                   userData?.role === "physio"
                     ? "/physio"
@@ -320,12 +329,12 @@ export default function AccountPage() {
                     : "/patient"
                 }
               >
-              <Button
-                // onPress={handlePasswordReset}
-                className="w-full border border-[#35B6B4] text-[#003A70] px-6 py-2 rounded-lg hover:bg-[#35B6B4] hover:text-white transition-all ease-in-out duration-300 cursor-pointer"
-              >
-                Dashboard
-              </Button>
+                <Button
+                  // onPress={handlePasswordReset}
+                  className="w-full border border-[#35B6B4] text-[#003A70] px-6 py-2 rounded-lg hover:bg-[#35B6B4] hover:text-white transition-all ease-in-out duration-300 cursor-pointer"
+                >
+                  Dashboard
+                </Button>
               </Link>
               {isEditing ? (
                 <>
@@ -456,13 +465,13 @@ export default function AccountPage() {
                 )}
               </div>
 
-        <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2">
                 <label className="text-sm font-medium text-gray-700">
                   Location
                 </label>
                 {isEditing ? (
-          <input
-            type="text"
+                  <input
+                    type="text"
                     placeholder="e.g. New York, USA"
                     className={`border px-4 py-2 rounded-lg focus:ring-2 focus:ring-[#003A70] focus:border-transparent ${
                       errors.location ? "border-red-500" : "border-gray-300"
@@ -485,15 +494,15 @@ export default function AccountPage() {
                     {errors.location.message}
                   </span>
                 )}
-        </div>
+              </div>
 
-        <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2">
                 <label className="text-sm font-medium text-gray-700">
                   Postal Code
                 </label>
                 {isEditing ? (
-          <input
-            type="text"
+                  <input
+                    type="text"
                     className={`border px-4 py-2 rounded-lg focus:ring-2 focus:ring-[#003A70] focus:border-transparent ${
                       errors.postalCode ? "border-red-500" : "border-gray-300"
                     }`}
@@ -544,14 +553,14 @@ export default function AccountPage() {
                     {errors.gender.message}
                   </span>
                 )}
-        </div>
+              </div>
 
-        <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2">
                 <label className="text-sm font-medium text-gray-700">
                   Date of Birth
                 </label>
                 {isEditing ? (
-          <input
+                  <input
                     type="date"
                     className={`border px-4 py-2 rounded-lg focus:ring-2 focus:ring-[#003A70] focus:border-transparent ${
                       errors.dob ? "border-red-500" : "border-gray-300"
@@ -600,15 +609,15 @@ export default function AccountPage() {
                     {errors.bloodGroup.message}
                   </span>
                 )}
-        </div>
+              </div>
 
-        <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2">
                 <label className="text-sm font-medium text-gray-700">
                   Timezone
                 </label>
                 {isEditing ? (
-          <input
-            type="text"
+                  <input
+                    type="text"
                     className={`border px-4 py-2 rounded-lg focus:ring-2 focus:ring-[#003A70] focus:border-transparent ${
                       errors.timezone ? "border-red-500" : "border-gray-300"
                     }`}
@@ -626,7 +635,7 @@ export default function AccountPage() {
                 )}
               </div>
             </div>
-        </div>
+          </div>
 
           {/* Additional Information Section */}
           <div className="bg-gray-50 rounded-lg shadow-sm p-10">
@@ -851,9 +860,9 @@ export default function AccountPage() {
                     {errors.address.pincode.message}
                   </span>
                 )}
-        </div>
-      </div>
-    </div>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
 

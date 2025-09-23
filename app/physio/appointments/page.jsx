@@ -54,7 +54,7 @@ export default function AppointmentsPage() {
   const filteredAppointments = statusFilter === "all" ? appointments : appointments?.filter((appt) => {appt.status === statusFilter});
 
   return (
-    <div className="max-w-4xl mx-auto py-10 px-4">
+    <div className="max-w-5xl mx-auto py-10 px-10">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <h1 className="text-3xl font-bold text-[#003A70]">Appointments</h1>
         <div className="w-full sm:w-auto">
@@ -64,37 +64,45 @@ export default function AppointmentsPage() {
 
       {/* Status Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-        <div className="flex items-center gap-4 bg-blue-50 rounded-xl p-5 shadow group hover:scale-[1.03] transition-transform duration-200">
-          <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100">
-            <span className="text-2xl text-blue-600 font-bold">
+        <div className="flex items-center gap-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 shadow-lg shadow-blue-100/50 group hover:scale-[1.02] hover:shadow-xl transition-all duration-300 cursor-pointer">
+          <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-500/10 backdrop-blur">
+            <span className="text-3xl text-blue-600 font-bold">
               {filteredAppointments?.filter((a) => a.status === "Upcoming").length || 0}
             </span>
           </div>
-          <div>
-            <div className="text-sm text-gray-500">Upcoming</div>
-            <div className="text-lg font-semibold text-blue-700">Appointments</div>
+          <div className="flex flex-col gap-1">
+            <div className="text-sm font-medium text-blue-600/70">Upcoming</div>
+            <div className="text-xl font-bold bg-gradient-to-r from-blue-700 to-blue-500 bg-clip-text text-transparent">
+              Appointments
+            </div>
           </div>
         </div>
-        <div className="flex items-center gap-4 bg-green-50 rounded-xl p-5 shadow group hover:scale-[1.03] transition-transform duration-200">
-          <div className="flex items-center justify-center w-12 h-12 rounded-full bg-green-100">
-            <span className="text-2xl text-green-600 font-bold">
+
+        <div className="flex items-center gap-6 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 shadow-lg shadow-green-100/50 group hover:scale-[1.02] hover:shadow-xl transition-all duration-300 cursor-pointer">
+          <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-green-500/10 backdrop-blur">
+            <span className="text-3xl text-green-600 font-bold">
               {filteredAppointments?.filter((a) => a.status === "Completed").length || 0}
             </span>
           </div>
-          <div>
-            <div className="text-sm text-gray-500">Completed</div>
-            <div className="text-lg font-semibold text-green-700">Appointments</div>
+          <div className="flex flex-col gap-1">
+            <div className="text-sm font-medium text-green-600/70">Completed</div>
+            <div className="text-xl font-bold bg-gradient-to-r from-green-700 to-green-500 bg-clip-text text-transparent">
+              Appointments
+            </div>
           </div>
         </div>
-        <div className="flex items-center gap-4 bg-red-50 rounded-xl p-5 shadow group hover:scale-[1.03] transition-transform duration-200">
-          <div className="flex items-center justify-center w-12 h-12 rounded-full bg-red-100">
-            <span className="text-2xl text-red-600 font-bold">
+
+        <div className="flex items-center gap-6 bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-6 shadow-lg shadow-red-100/50 group hover:scale-[1.02] hover:shadow-xl transition-all duration-300 cursor-pointer">
+          <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-red-500/10 backdrop-blur">
+            <span className="text-3xl text-red-600 font-bold">
               {filteredAppointments?.filter((a) => a.status === "Cancelled").length || 0}
             </span>
           </div>
-          <div>
-            <div className="text-sm text-gray-500">Cancelled</div>
-            <div className="text-lg font-semibold text-red-700">Appointments</div>
+          <div className="flex flex-col gap-1">
+            <div className="text-sm font-medium text-red-600/70">Cancelled</div>
+            <div className="text-xl font-bold bg-gradient-to-r from-red-700 to-red-500 bg-clip-text text-transparent">
+              Appointments
+            </div>
           </div>
         </div>
       </div>

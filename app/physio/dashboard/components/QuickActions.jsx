@@ -29,28 +29,28 @@ export default function QuickActions() {
   }
 
   return (
-    <div className="max-w-5xl flex justify-center">
-      <div className="inline-flex bg-white border border-[#E0E7EF] rounded-full shadow-lg px-2 py-2 gap-2 md:gap-4">
+    <div className="max-w-5xl w-full flex justify-center px-4">
+      <div className="inline-flex backdrop-blur-sm bg-white/80 rounded-2xl shadow-xl p-3 gap-3">
         {actions.map((action, idx) => (
           <Link
             key={action.label}
             href={action.href}
             className={`
-              flex items-center gap-2 px-4 py-2 rounded-full font-semibold transition
-              focus:outline-none focus:ring-2 focus:ring-[#35B6B4]/40
+              group flex items-center gap-3 px-5 py-3 rounded-xl font-medium
+              transition-all duration-300 ease-in-out
+              hover:shadow-lg hover:-translate-y-1
+              focus:outline-none focus:ring-2 focus:ring-offset-2
               ${
                 idx === 0
-                  ? "bg-[#F0FDFC] hover:bg-[#E1F7F6] text-[#35B6B4]"
+                  ? "bg-gradient-to-br from-teal-50 to-teal-100 text-teal-600 hover:from-teal-100 hover:to-teal-200 focus:ring-teal-400"
                   : idx === 1
-                  ? "bg-[#F8F5FF] hover:bg-[#F1EAFE] text-[#7C3AED]"
-                  : "bg-[#FFF7F0] hover:bg-[#FEECDC] text-[#F59E42]"
+                  ? "bg-gradient-to-br from-purple-50 to-purple-100 text-purple-600 hover:from-purple-100 hover:to-purple-200 focus:ring-purple-400"
+                  : "bg-gradient-to-br from-orange-50 to-orange-100 text-orange-600 hover:from-orange-100 hover:to-orange-200 focus:ring-orange-400"
               }
-              shadow-sm hover:scale-105
             `}
-            style={{ minWidth: 0 }}
           >
-            <span className="text-xl">{action.icon}</span>
-            <span className="hidden sm:inline">{action.label}</span>
+            <span className="text-xl transition-transform group-hover:scale-110">{action.icon}</span>
+            <span className="hidden sm:block text-sm tracking-wide">{action.label}</span>
           </Link>
         ))}
       </div>

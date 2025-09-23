@@ -85,8 +85,8 @@ export default function EarningsPage() {
   }
 
   return (
-    <div className="p-6 space-y-8">
-      <h1 className="text-2xl font-semibold text-gray-800">Earnings</h1>
+    <div className="max-w-5xl mx-auto py-10 px-10">
+      <h1 className="text-3xl font-bold text-[#003A70]">Earnings</h1>
       <EarningsSummary stats={summaryStats}/>
       <EarningsTable earnings={earnings || []}/>
     </div>

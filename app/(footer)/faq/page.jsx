@@ -2,6 +2,8 @@ import Footer from '@/app/components/Footer'
 import Header from '@/app/components/Header'
 import React from 'react'
 import Faq from './components/Faq'
+import Link from 'next/link'
+import { ChevronsRight } from 'lucide-react'
 
 const page = () => {
   return (

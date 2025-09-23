@@ -32,8 +32,8 @@ export default function Page() {
     setIsLoading(true);
     try {
       await signInWithEmailAndPassword(auth, data?.email, data?.password);
-      console.log(data);
-      console.log("data role:" & data?.role);
+      // console.log(data);
+      // console.log("data role:" & data?.role);
       if (data?.role === "physio") {
         router.push("/physio");
       } else if (data?.role === "patient") {

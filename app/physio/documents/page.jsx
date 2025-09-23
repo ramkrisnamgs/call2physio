@@ -46,8 +46,8 @@ export default function DocumentPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 space-y-10">
-      <h1 className="text-3xl font-bold text-gray-800">Your Verification Documents</h1>
+    <div className="max-w-5xl mx-auto py-10 px-10 space-y-10">
+      <h1 className="text-3xl font-bold text-[#003A70]">Documents</h1>
 
       {/* Approval request and status display */}
       <RequestAdminApproval uid={user?.uid} data={physioData} />

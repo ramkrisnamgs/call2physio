@@ -33,18 +33,22 @@ export default function PhysioAccountSettings() {
   return (
     <div className="max-w-5xl mx-auto bg-white p-8 space-y-12">
       <div className="flex items-center gap-6 mb-8">
-        <div className="w-20 h-20 rounded-full bg-[#f0fdfd] border-4 border-[#35B6B4]/20 flex items-center justify-center overflow-hidden shadow">
-          {userData.photoURL ? (
-            <img
-              src={userData.photoURL}
-              alt={formData.name}
-              className="w-full h-full object-cover rounded-full"
-            />
-          ) : (
-            <span className="text-3xl font-bold text-[#35B6B4]">
-              {formData.name?.[0]?.toUpperCase() || "P"}
-            </span>
-          )}
+        <div className="relative w-20 h-20">
+          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#35B6B4] via-[#35B6B4]/20 to-[#35B6B4] animate-spin"></div>
+          <div className="absolute inset-[3px] rounded-full bg-white"></div>
+          <div className="absolute inset-[4px] rounded-full bg-[#f0fdfd] flex items-center justify-center overflow-hidden">
+            {userData.photoURL ? (
+              <img
+                src={userData.photoURL}
+                alt={formData.name}
+                className="w-full h-full object-cover rounded-full"
+              />
+            ) : (
+              <span className="text-3xl font-bold text-[#35B6B4]">
+                {formData.name?.[0]?.toUpperCase() || "P"}
+              </span>
+            )}
+          </div>
         </div>
         <div>
           <h2 className="text-3xl font-bold text-[#003A70] mb-1">
