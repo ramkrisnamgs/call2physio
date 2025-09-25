@@ -36,8 +36,8 @@ export default function PhysioSidebar() {
       {/* Desktop Sidebar */}
       <div className="hidden md:flex min-h-screen w-64 bg-white shadow-lg flex-col">
         <div className="px-8 py-6 text-xl font-bold text-[#35B6B4]">
-          {/* Call2Physio */}
-          Nexorah
+          Call2Physio
+          {/* Nexorah */}
         </div>
         <nav className="flex-1 space-y-2 px-2">
           {links.map(({ href, label, icon }) => (

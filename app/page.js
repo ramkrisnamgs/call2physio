@@ -8,11 +8,13 @@ import Steps from "./components/Steps";
 import Testimonials from "./components/Testimonials";
 import Professional from "./components/Professional";
 import AppointmentForm from "./styleComponent/AppointmentForm";
+import Popup from "./components/popup";
 
 export default function Home() {
   return (
     <div className="max-h-screen max-w-screen flex flex-col">
       <Header />
+      <Popup />
       <Hero />
       {/* <AppointmentForm /> */}
       <About />

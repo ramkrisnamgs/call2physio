@@ -220,13 +220,14 @@ const Navbar = () => {
       <div className="logo flex items-center justify-center gap-3 group">
         <img 
           src="/call2physio.png" 
-          alt="Nexorah Logo" 
+          alt="call2physio Logo" 
+          // alt="Nexorah Logo" 
           className="w-12 h-12 object-contain transform group-hover:scale-105 transition-transform duration-300" 
         />
         
         <h1 className="text-2xl font-bold text-[#003A70]">
-          {/* Call2Physio */}
-          Nexorah
+          Call2Physio
+          {/* Nexorah */}
         </h1>
       </div>
 
@@ -512,13 +513,13 @@ const TopNavbar = () => {
         </a>
         <div className="hidden md:block text-white/50">|</div>
         <a 
-          // href="mailto:support@call2physio.com"
-          href="mailto:support@nexorah.com"
+          href="mailto:support@call2physio.com"
+          // href="mailto:support@nexorah.com"
           className="flex items-center gap-2 hover:text-[#003A70] transition-all duration-300 group"
         >
           <Mail size={16} className="group-hover:scale-110 transition-transform duration-300" />
-          {/* <span>support@call2physio.com</span> */}
-          <span>support@nexorah.com</span>
+          <span>support@call2physio.com</span>
+          {/* <span>support@nexorah.com</span> */}
         </a>
       </div>
 

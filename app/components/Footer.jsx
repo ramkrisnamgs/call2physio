@@ -53,7 +53,7 @@ const Footer = () => {
                   {['Home', 'About Us', 'Contact', 'FAQ'].map((item, index) => (
                     <li key={index} className="text-sm text-gray-300 group">
                       <Link
-                        href={`/${item.toLowerCase().replace(' ', '-')}`}
+                        href={"Home" ? "/" : `/${item.toLowerCase().replace(' ', '-')}`}
                         className="text-sm text-gray-300 hover:text-[#35B6B4] transition-colors duration-300 flex items-center gap-2"
                       >
                         <span className="w-0 group-hover:w-2 h-[2px] bg-[#35B6B4] transition-all duration-300"></span>

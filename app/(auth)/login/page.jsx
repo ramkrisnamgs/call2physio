@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import {
   GoogleAuthProvider,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
@@ -49,6 +50,18 @@ export default function Page() {
       setIsLoading(false);
     }
   };
+
+  // const handleForgetPassword = async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     await sendPasswordResetEmail(auth, data?.email);
+  //     toast.success("Password reset email sent");
+  //   } catch (error) {
+  //     toast.error(error?.message);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   useEffect(() => {
     if (user) {
@@ -115,7 +128,10 @@ export default function Page() {
 
               <div className="flex justify-between w-full">
                 <Link href={`/forget-password`}>
-                  <button className="font-semibold text-sm text-gray-800 cursor-pointer">
+                  <button
+                    // onClick={handleForgetPassword}
+                    className="font-semibold text-sm text-gray-800 cursor-pointer"
+                  >
                     Forget Password?
                   </button>
                 </Link>

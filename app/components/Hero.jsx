@@ -7,7 +7,7 @@ import PlayButton from "../styleComponent/PlayButton";
 
 const Hero = () => {
   return (
-    <div className="relative max-w-screen h-full mb-20 text-white bg-[#003A70]">
+    <div className="relative max-w-screen h-full mb-10 text-white bg-[#003A70]">
       <div className="px-4 sm:px-8 md:px-20 mb-20 w-full flex flex-col-reverse md:flex-row items-center justify-between gap-6 md:gap-10">
         {/* Hero Text */}
         <div className="flex-1 flex flex-col items-start justify-center gap-4 h-full">

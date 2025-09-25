@@ -93,11 +93,11 @@ export default function Page() {
               }}
               className="flex flex-col items-center justify-center gap-6"
             >
-              {/* Toogle between Patien and Physio */}
+              {/* Toggle between Patient and Physio */}
               <div className="w-full">
                 <h3 className="mb-4 text-lg font-medium text-gray-800">
-                  Choose yuor role:
-                </h3>
+                  Choose your role:
+                </h3> 
                 <div className="flex gap-3">
                   {["patient", "physio"].map((role) => (
                     <button
