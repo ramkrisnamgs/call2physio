@@ -8,7 +8,7 @@ import Steps from "./components/Steps";
 import Testimonials from "./components/Testimonials";
 import Professional from "./components/Professional";
 import AppointmentForm from "./styleComponent/AppointmentForm";
-import Popup from "./components/popup";
+import Popup from "./components/Popup";
 
 export default function Home() {
   return (
