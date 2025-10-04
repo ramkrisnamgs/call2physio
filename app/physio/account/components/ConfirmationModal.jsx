@@ -18,8 +18,8 @@ export default function ConfirmationModal({
           will also be deleted permanently:{" "}
         </p>
         <ul className="text-sm text-gray-600 list-disc ml-6 max-h-40 overflow-y-auto">
-          {filesNames.length > 0 ? (
-            filesNames.map((name) => <li key={name}>(name)</li>)
+          {Array.isArray(filesNames) && filesNames.length > 0 ? (
+            filesNames.map((name) => <li key={name}>{name}</li>)
           ) : (
             <li>No files to display</li>
           )}
@@ -36,7 +36,7 @@ export default function ConfirmationModal({
           <Button
             onPress={onConfirm}
             isLoading={isDeleting}
-            className="bg-red-600 text-white px-4 py-2 rounded"
+            className="bg-red-600 text-white px-4 py-2 rounded cursor-pointer"
           >
             Confirm Delete
           </Button>

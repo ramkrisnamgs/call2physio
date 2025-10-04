@@ -1,5 +1,5 @@
 import { db, storage } from "@/lib/firebase";
-import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import {
   deleteObject,
   getDownloadURL,
@@ -97,12 +97,13 @@ export const deletePhysioAccount = async (uid) => {
 
   // Finally delete Firestore user doc
   const userRef = doc(db, "user", uid);
-  await updateDoc(userRef, {
-    role: null,
-    isApproved: false,
-    status: "Deleted",
-    deletedAt: serverTimestamp(),
-  });
+  await deleteDoc(userRef);
+  // await updateDoc(userRef, {
+  //   role: null,
+  //   isApproved: false,
+  //   status: "Deleted",
+  //   deletedAt: serverTimestamp(),
+  // });
 };
 
 // import { db, storage } from "@/lib/firebase";

@@ -62,6 +62,7 @@ export default function Page() {
       toast.success("Signup successful");
     } catch (error) {
       toast.error(error?.message);
+      console.log(error);
     } finally {
       setIsLoading(false);
     }

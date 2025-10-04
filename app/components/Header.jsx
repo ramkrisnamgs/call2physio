@@ -219,10 +219,11 @@ const Navbar = () => {
       {/* LOGO */}
       <div className="logo flex items-center justify-center gap-3 group">
         <img 
-          src="/call2physio.png" 
+          // src="/call2physio.png" 
+          src="/c2pp.jpg"
           alt="call2physio Logo" 
           // alt="Nexorah Logo" 
-          className="w-12 h-12 object-contain transform group-hover:scale-105 transition-transform duration-300" 
+          className="w-24 h-24 object-contain transform group-hover:scale-105 transition-transform duration-300"
         />
         
         <h1 className="text-2xl font-bold text-[#003A70]">

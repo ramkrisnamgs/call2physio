@@ -1,14 +1,21 @@
+"use client";
+
 import { deletePhysioAccount } from "@/lib/firebase/physio/write";
 import { listPhysioFiles } from "@/lib/firebase/physio/read";
 import { Button } from "@heroui/react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import ConfirmationModal from "./ConfirmationModal";
+import { signOut } from "firebase/auth";
+import { auth } from "@/lib/firebase";
+import { useRouter } from "next/navigation";
 
 export default function DeleteAccountSection({ uid }) {
   const [fileNames, setFileNames] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     if (uid) {
@@ -24,8 +31,15 @@ export default function DeleteAccountSection({ uid }) {
       await deletePhysioAccount(uid, fileNames);
       toast.success("Account and documents deleted successfully");
       // Optional: redirect to home / logout
+        await toast.promise(signOut(auth), {
+          error: (e) => e?.message,
+          loading: "logging out...",
+          success: "Logged out successfully",
+        });
+        router.push("/");
     } catch (error) {
-      toast.error("Failed to delete account: " + error.message);
+      // toast.error("Failed to delete account: " + error.message);
+      console.error(error);
     } finally {
       setIsDeleting(false);
       setShowModal(false);
@@ -47,7 +61,7 @@ export default function DeleteAccountSection({ uid }) {
         Delete My Account
       </Button>
 
-      <ConfirmationModal isOpen={showModal}/>
+      <ConfirmationModal isOpen={showModal} onConfirm={handleDelete}/>
     </div>
   );
 }
