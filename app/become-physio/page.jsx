@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
@@ -74,6 +75,18 @@ export default function FindPhysioPage() {
                         </form>
                     </div>
                 </div>
+            </main>
+
+            <main className="min-h-screen flex flex-col items-center justify-center">
+                <h1 className="text-3xl font-bold mb-6">Join as a Physio</h1>
+                <p className="mb-8 text-gray-600 text-center max-w-lg">
+                    Upload your documents and get verified to start receiving patients from our platform.
+                </p>
+
+                {/* Navigate with role pre-set to physio */}
+                <Link href="/signup?role=physio" className="bg-[#35B6B4] text-white px-6 py-3 rounded-md hover:bg-[#2da5a3] transition-colors duration-300">
+                    Signup as Physio
+                </Link>
             </main>
             
             <Footer />
