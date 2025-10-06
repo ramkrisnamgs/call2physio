@@ -64,112 +64,116 @@ export default function SignupPage() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-200">
-      <div className="w-full sm:w-[900px] bg-white shadow rounded-lg flex flex-col lg:flex-row overflow-hidden">
+    <main className="h-full flex items-center justify-center bg-gray-200">
+      <div className="w-full h-full m-0 sm-m-10 p-10 bg-white rounded-lg flex item-center justify-center flex-col lg:flex-row overflow-hidden">
         {/* Form Section */}
-        <section className="flex-1 flex flex-col py-10 px-8 sm:px-16 justify-center gap-8">
-          <h2 className="text-2xl font-semibold text-gray-800 text-center">
-            Create your account
-          </h2>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSignup();
-            }}
-            className="flex flex-col gap-6"
-          >
-            {/* Role Selection (hidden if preselected via query) */}
-            {!(
-              data.role &&
-              ["physio", "patient"].includes(data.role) &&
-              searchParams.get("role")
-            ) && (
-              <div>
-                <h3 className="mb-3 text-lg font-medium text-gray-800">
-                  Choose your role:
-                </h3>
-                <div className="flex gap-3">
-                  {["patient", "physio"].map((role) => (
-                    <button
-                      key={role}
-                      type="button"
-                      onClick={() => handleData("role", role)}
-                      className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl transition-all ${
-                        data.role === role
-                          ? "bg-[#35B6B4] text-white shadow-lg shadow-[#35B6B4]/20"
-                          : "bg-white text-gray-600 border border-gray-200 hover:border-[#35B6B4] hover:text-[#35B6B4]"
-                      }`}
-                    >
-                      {role === "physio" ? (
-                        <>
-                          <Stethoscope className="h-5 w-5" />
-                          <span className="font-medium">Physiotherapist</span>
-                        </>
-                      ) : (
-                        <>
-                          <User className="h-5 w-5" />
-                          <span className="font-medium">Patient</span>
-                        </>
-                      )}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-            {/* Inputs */}
-            <div className="flex flex-col gap-4">
-              <input
-                value={data.name}
-                onChange={(e) => handleData("name", e.target.value)}
-                type="text"
-                placeholder="Full Name"
-                className="w-full px-5 py-3 bg-gray-100 text-gray-800 border rounded-lg focus:outline-none"
-                required
-              />
-              <input
-                value={data.email}
-                onChange={(e) => handleData("email", e.target.value)}
-                type="email"
-                placeholder="Email"
-                className="w-full px-5 py-3 bg-gray-100 text-gray-800 border rounded-lg focus:outline-none"
-                required
-              />
-              <input
-                value={data.password}
-                onChange={(e) => handleData("password", e.target.value)}
-                type="password"
-                placeholder="Password"
-                className="w-full px-5 py-3 bg-gray-100 text-gray-800 border rounded-lg focus:outline-none"
-                required
-              />
-            </div>
-            <Button
-              isLoading={isLoading}
-              isDisabled={isLoading}
-              type="submit"
-              size="lg"
-              className="w-full bg-[#35B6B4] px-5 py-3 rounded-lg text-white font-semibold cursor-pointer"
+        <section className="flex-1 flex flex-col py-10 justify-center gap-3">
+          <div className="w-full px-5 sm:px-20 flex flex-col gap-8">
+            <h2 className="text-2xl font-semibold text-gray-800 text-center">
+              Create your account
+            </h2>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSignup();
+              }}
+              className="flex flex-col gap-6"
             >
-              Sign Up
-            </Button>
-            <p className="text-center text-gray-500 text-sm">
-              Already have an account?{" "}
-              <Link
-                href="/login"
-                className="font-semibold text-gray-800 hover:text-[#35B6B4]"
+              {/* Role Selection (hidden if preselected via query) */}
+              {!(
+                data.role &&
+                ["physio", "patient"].includes(data.role) &&
+                searchParams.get("role")
+              ) && (
+                <div>
+                  <h3 className="mb-3 text-lg font-medium text-gray-800">
+                    Choose your role:
+                  </h3>
+                  <div className="flex gap-3">
+                    {["patient", "physio"].map((role) => (
+                      <button
+                        key={role}
+                        type="button"
+                        onClick={() => handleData("role", role)}
+                        className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl transition-all ${
+                          data.role === role
+                            ? "bg-[#35B6B4] text-white shadow-lg shadow-[#35B6B4]/20"
+                            : "bg-white text-gray-600 border border-gray-200 hover:border-[#35B6B4] hover:text-[#35B6B4]"
+                        }`}
+                      >
+                        {role === "physio" ? (
+                          <>
+                            <Stethoscope className="h-5 w-5" />
+                            <span className="font-medium">Physiotherapist</span>
+                          </>
+                        ) : (
+                          <>
+                            <User className="h-5 w-5" />
+                            <span className="font-medium">Patient</span>
+                          </>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {/* Inputs */}
+              <div className="flex flex-col gap-4">
+                <input
+                  value={data.name}
+                  onChange={(e) => handleData("name", e.target.value)}
+                  type="text"
+                  placeholder="Full Name"
+                  className="w-full px-5 py-3 bg-gray-100 text-gray-800 border rounded-lg focus:outline-none"
+                  required
+                />
+                <input
+                  value={data.email}
+                  onChange={(e) => handleData("email", e.target.value)}
+                  type="email"
+                  placeholder="Email"
+                  className="w-full px-5 py-3 bg-gray-100 text-gray-800 border rounded-lg focus:outline-none"
+                  required
+                />
+                <input
+                  value={data.password}
+                  onChange={(e) => handleData("password", e.target.value)}
+                  type="password"
+                  placeholder="Password"
+                  className="w-full px-5 py-3 bg-gray-100 text-gray-800 border rounded-lg focus:outline-none"
+                  required
+                />
+              </div>
+              <Button
+                isLoading={isLoading}
+                isDisabled={isLoading}
+                type="submit"
+                size="lg"
+                className="w-full bg-[#35B6B4] px-5 py-3 rounded-lg text-white font-semibold cursor-pointer"
               >
-                Login here
-              </Link>
-            </p>
-          </form>
+                Sign Up
+              </Button>
+              <p className="text-center text-gray-500 text-sm">
+                Already have an account?{" "}
+                <Link
+                  href="/login"
+                  className="font-semibold text-gray-800 hover:text-[#35B6B4]"
+                >
+                  Login here
+                </Link>
+              </p>
+            </form>
+          </div>
         </section>
         {/* Image Section */}
-        <div className="flex-1 bg-gray-100 hidden lg:flex">
+        <div className="flex-1 bg-white text-center hidden md:flex md:items-center md:justify-center">
           <div
-            className="w-full h-full bg-cover bg-center"
+            className="w-full h-[90vh] rounded-r-lg bg-cover bg-center bg-no-repeat"
             style={{
+              //     backgroundImage:
+              //       "url('https://images.unsplash.com/photo-1630226040750-d934f017f0e4?q=80&w=2070&auto=format&fit=crop')",
               backgroundImage:
-                "url('https://images.unsplash.com/photo-1630226040750-d934f017f0e4?q=80&w=2070&auto=format&fit=crop')",
+                "url('https://images.unsplash.com/photo-1630226040750-d934f017f0e4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
             }}
           ></div>
         </div>

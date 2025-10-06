@@ -70,8 +70,8 @@ export default function Page() {
   }, [user]);
 
   return (
-    <main className="max-h-screen flex items-center justify-center bg-gray-200">
-      <div className="w-full h-full m-0 sm:m-10 bg-white shadow rounded-lg flex justify-center">
+    <main className="h-full flex items-center justify-center">
+      <div className="w-full h-full m-0 bg-white rounded-lg flex p-10 justify-center">
         <section className="flex-1 flex flex-col py-10 justify-center gap-3">
           {/* logo */}
           {/* <div className="logo flex items-center justify-center gap-2">
@@ -79,7 +79,7 @@ export default function Page() {
             <h1 className="text-2xl font-bold">Call2Physio</h1>
           </div> */}
           {/* login form */}
-          <div className="w-full px-20 flex flex-col gap-10">
+          <div className="w-full px-5 sm:px-20 flex flex-col gap-10">
             <div className="w-full flex items-center justify-center gap-4 border-b text-center">
               <div className="border-gray-300 w-1/4 mx-auto"></div>
               <div className="flex-1 text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
