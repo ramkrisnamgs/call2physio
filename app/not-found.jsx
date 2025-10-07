@@ -24,7 +24,7 @@ export default function NotFoundPage() {
     background: "white",
     borderRadius: "50%",
     border: "2px solid black",
-    width: "200px",
+    width: "170px",
     height: "200px",
     display: "flex",
     alignItems: "center",
@@ -36,41 +36,41 @@ export default function NotFoundPage() {
     background: "black",
     borderRadius: "50%",
     width: "80px",
-    height: "80px",
+    height: "100px",
     position: "relative",
   };
 
   return (
     <>
     <Header />
-    <div
-      style={{
-        backgroundColor: "#fff",
-        height: "90vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
+    <div className="p-12 h-full flex flex-col items-center justify-center bg-white"
+      // style={{
+      //   backgroundColor: "#fff",
+      //   height: "90vh",
+      //   display: "flex",
+      //   flexDirection: "column",
+      //   alignItems: "center",
+      //   justifyContent: "center",
+      // }}
     >
       {/* Eyes */}
-      <div style={{ display: "flex", marginBottom: "40px" }}>
+      <div style={{ display: "flex", marginBottom: "30px" }}>
         {[0, 1].map((eye) => (
           <div key={eye} style={eyeStyle}>
             <motion.div
               style={pupilStyle}
               animate={{
-                x: position.x * 60, // limit movement
-                y: position.y * 60,
+                x: position.x * 90, // limit movement
+                y: position.y * 90,
               }}
-              transition={{ type: "spring", stiffness: 600, damping: 15 }}
+              transition={{ type: "linear" }}
             />
           </div>
         ))}
       </div>
 
       {/* Text */}
-      <h1 style={{ fontSize: "2.5rem", fontFamily: "serif" }}>
+      <h1 className="text-2xl font-semibold text-center" >
         404, Page Not Found
       </h1>
 

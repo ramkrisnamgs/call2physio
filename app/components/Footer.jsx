@@ -20,8 +20,15 @@ const Footer = () => {
             <div className="flex-1 flex flex-col items-center md:items-start justify-center gap-4 w-full md:w-auto">
               {/* Logo */}
               <div className="logo flex items-center justify-center gap-2 transform hover:scale-105 transition-transform duration-300">
-                <img src="/call2physio.png" alt="" className="w-12 h-12 animate-pulse" />
-                <h1 className="text-2xl md:text-3xl font-bold text-white">Call2Physio</h1>
+                <img
+                  src="/c2pp.jpg"
+                  // src="/call2physio.png"
+                  alt=""
+                  className="w-14 h-14 animate-pulse"
+                />
+                <h1 className="text-2xl md:text-3xl font-bold text-white">
+                  Call2Physio
+                </h1>
               </div>
 
               {/* Desc. */}
@@ -48,12 +55,18 @@ const Footer = () => {
             <div className="flex-1 flex flex-col md:flex-row gap-8 w-full">
               {/* Quick Links */}
               <div className="w-full md:w-[30%] flex flex-col items-center md:items-start justify-start">
-                <h1 className="text-xl font-bold text-white mb-6 w-full text-center md:text-left">Quick Links</h1>
+                <h1 className="text-xl font-bold text-white mb-6 w-full text-center md:text-left">
+                  Quick Links
+                </h1>
                 <ul className="flex flex-col items-center md:items-start justify-center gap-4">
-                  {['Home', 'About Us', 'Contact', 'FAQ'].map((item, index) => (
+                  {["Home", "About Us", "Contact", "FAQ"].map((item, index) => (
                     <li key={index} className="text-sm text-gray-300 group">
                       <Link
-                        href={"Home" ? "/" : `/${item.toLowerCase().replace(' ', '-')}`}
+                        href={
+                          "Home"
+                            ? "/"
+                            : `/${item.toLowerCase().replace(" ", "-")}`
+                        }
                         className="text-sm text-gray-300 hover:text-[#35B6B4] transition-colors duration-300 flex items-center gap-2"
                       >
                         <span className="w-0 group-hover:w-2 h-[2px] bg-[#35B6B4] transition-all duration-300"></span>
@@ -66,20 +79,22 @@ const Footer = () => {
 
               {/* Services */}
               <div className="w-full md:w-[40%] flex flex-col items-center md:items-start justify-start">
-                <h1 className="text-xl font-bold text-white mb-6 w-full text-center md:text-left">Services</h1>
+                <h1 className="text-xl font-bold text-white mb-6 w-full text-center md:text-left">
+                  Services
+                </h1>
                 <ul className="flex flex-col items-center md:items-start justify-center gap-4">
                   {[
-                    'Physiotherapy at Clinic',
-                    'Physiotherapy at Home',
-                    'Physiotherapy at Workplace',
-                    'Online Consultation'
+                    "Physiotherapy at Clinic",
+                    "Physiotherapy at Home",
+                    "Physiotherapy at Workplace",
+                    "Online Consultation",
                   ].map((service, index) => (
                     <li key={index} className="text-sm text-gray-300 group">
                       <Link
                         href={`/services/${service
                           .toLowerCase()
-                          .replace('physiotherapy at', 'physio-at')
-                          .replace(/\s+/g, '-')}`}
+                          .replace("physiotherapy at", "physio-at")
+                          .replace(/\s+/g, "-")}`}
                         className="text-sm text-gray-300 hover:text-[#35B6B4] transition-colors duration-300 flex items-center gap-2"
                       >
                         <span className="w-0 group-hover:w-2 h-[2px] bg-[#35B6B4] transition-all duration-300"></span>
@@ -92,7 +107,9 @@ const Footer = () => {
 
               {/* Contact Us */}
               <div className="w-full md:w-[40%] flex flex-col items-center md:items-start justify-start">
-                <h1 className="text-xl font-bold text-white mb-6 w-full text-center md:text-left">Contact Us</h1>
+                <h1 className="text-xl font-bold text-white mb-6 w-full text-center md:text-left">
+                  Contact Us
+                </h1>
                 <ul className="flex flex-col items-center md:items-start justify-center gap-4">
                   <li className="text-sm text-gray-300 group">
                     <a
@@ -114,7 +131,10 @@ const Footer = () => {
                   </li>
                   <li className="text-sm text-gray-300 group">
                     <div className="flex items-center gap-2 hover:text-[#35B6B4] transition-colors duration-300">
-                      <MapPin size={16} className="group-hover:animate-bounce" />
+                      <MapPin
+                        size={16}
+                        className="group-hover:animate-bounce"
+                      />
                       <span>Connaught Place, New Delhi</span>
                     </div>
                   </li>
@@ -137,10 +157,10 @@ const Footer = () => {
           {/* social media icons */}
           <div className="flex gap-4 text-white">
             {[
-              { icon: faFacebookF, url: 'https://facebook.com' },
-              { icon: faInstagram, url: 'https://instagram.com' },
-              { icon: faTwitter, url: 'https://twitter.com' },
-              { icon: faLinkedinIn, url: 'https://linkedin.com' }
+              { icon: faFacebookF, url: "https://facebook.com" },
+              { icon: faInstagram, url: "https://instagram.com" },
+              { icon: faTwitter, url: "https://twitter.com" },
+              { icon: faLinkedinIn, url: "https://linkedin.com" },
             ].map((social, index) => (
               <a
                 key={index}
@@ -157,9 +177,9 @@ const Footer = () => {
           {/* T&C,PP,RP */}
           <div className="flex flex-wrap items-center justify-center gap-2">
             {[
-              { name: 'Terms & Conditions', path: '/terms-and-conditions' },
-              { name: 'Privacy Policy', path: '/privacy-policy' },
-              { name: 'Refund Policy', path: '/refund-policy' }
+              { name: "Terms & Conditions", path: "/terms-and-conditions" },
+              { name: "Privacy Policy", path: "/privacy-policy" },
+              { name: "Refund Policy", path: "/refund-policy" },
             ].map((item, index, array) => (
               <React.Fragment key={index}>
                 <Link

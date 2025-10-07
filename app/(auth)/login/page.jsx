@@ -150,7 +150,7 @@ export default function Page() {
             </form>
           </div>
         </section>
-        <div className="flex-1 bg-green-100 text-center hidden lg:flex">
+        <div className="flex-1 text-center hidden lg:flex">
           <div
             className="w-full h-full rounded-r-lg bg-cover bg-center bg-no-repeat"
             style={{
