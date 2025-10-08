@@ -8,10 +8,11 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { createUser } from "@/lib/firebase/user/write";
 import { Button } from "@heroui/react";
 import Link from "next/link";
-import { Stethoscope, User } from "lucide-react";
+import { Eye, EyeOff, Stethoscope, User } from "lucide-react";
 export default function SignupPage() {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [data, setData] = useState({
@@ -61,6 +62,10 @@ export default function SignupPage() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -135,14 +140,24 @@ export default function SignupPage() {
                   className="w-full px-5 py-3 bg-gray-100 text-gray-800 border rounded-lg focus:outline-none"
                   required
                 />
-                <input
-                  value={data.password}
-                  onChange={(e) => handleData("password", e.target.value)}
-                  type="password"
-                  placeholder="Password"
-                  className="w-full px-5 py-3 bg-gray-100 text-gray-800 border rounded-lg focus:outline-none"
-                  required
-                />
+                <div className="relative">
+                  <input
+                    value={data.password}
+                    onChange={(e) => handleData("password", e.target.value)}
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    className="w-full px-5 py-3 bg-gray-100 text-gray-800 border rounded-lg focus:outline-none"
+                    required
+                  />
+                  <button 
+                    type="button" 
+                    onClick={toggleShowPassword}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-md hover:bg-gray-200 transition-colors cursor-pointer"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? <Eye size={20} className="text-gray-600" /> : <EyeOff size={20} className="text-gray-600" />}
+                  </button>
+                </div>
               </div>
               <Button
                 isLoading={isLoading}
@@ -154,10 +169,10 @@ export default function SignupPage() {
                 Sign Up
               </Button>
               <p className="text-center text-gray-500 text-sm">
-                Already have an account?{" "}
+                Already have an account?{"  "}
                 <Link
                   href="/login"
-                  className="font-semibold text-gray-800 hover:text-[#35B6B4]"
+                  className="font-semibold text-gray-700 hover:text-[#35B6B4]"
                 >
                   Login here
                 </Link>

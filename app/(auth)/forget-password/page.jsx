@@ -81,10 +81,10 @@ const ForgotPasswordPage = () => {
                   {isLoading ? "Sending..." : "Send Reset Link"}
                 </button>
 
-                <div className="w-full flex gap-2 items-center justify-between text-gray-500 mt-2">
+                <div className="flex gap-2 text-gray-500 mt-2">
                   <h4>Remembered your password?</h4>
-                  <Link href="/login" className="text-[#35B6B4]">
-                    <button className="font-semibold text-sm cursor-pointer rounded-xl w-full">
+                  <Link href="/login">
+                    <button className="font-semibold text-sm text-gray-700 hover:text-[#35B6B4] cursor-pointer rounded-xl w-full">
                       Login here
                     </button>
                   </Link>

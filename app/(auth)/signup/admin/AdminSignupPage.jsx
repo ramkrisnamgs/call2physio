@@ -10,12 +10,14 @@ import Link from "next/link";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { createUser } from "@/lib/firebase/user/write";
 import { auth } from "@/lib/firebase";
+import { Eye, EyeOff } from "lucide-react";
 
 const SECRET_KEY = process.env.NEXT_PUBLIC_ADMIN_SIGNUP_KEY; // keep this secure and long
 
 export default function AdminSignupPage() {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -32,6 +34,10 @@ export default function AdminSignupPage() {
       [key]: value,
     }));
   };
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword)
+  }
 
   const handleSignup = async () => {
     setIsLoading(true);
@@ -110,13 +116,29 @@ export default function AdminSignupPage() {
                   className="w-full px-5 py-3 bg-gray-100 text-gray-800 placeholder:text-gray-900 border focus:outline-none rounded-lg"
                 />
 
+                <div className="relative">
                 <input
                   value={data.password}
                   onChange={(e) => handleData("password", e.target.value)}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   className="w-full px-5 py-3 bg-gray-100 text-gray-800 placeholder:text-gray-900 border focus:outline-none rounded-lg"
                 />
+                <button
+                    type="button"
+                    onClick={toggleShowPassword}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-md hover:bg-gray-200 transition-colors cursor-pointer"
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
+                  >
+                    {showPassword ? (
+                      <Eye size={20} className="text-gray-600" />
+                    ) : (
+                      <EyeOff size={20} className="text-gray-600" />
+                    )}
+                  </button>
+                </div>
               </div>
 
               <Button
@@ -132,7 +154,7 @@ export default function AdminSignupPage() {
               <div className="flex gap-2 items-center justify-center text-gray-500">
                 <h4>Already have an account?</h4>
                 <Link href={`/login`}>
-                  <button className="font-semibold text-sm text-gray-800 cursor-pointer rounded-xl w-full">
+                  <button className="font-semibold text-sm text-gray-700 hover:text-[#35B6B4] cursor-pointer rounded-xl w-full">
                     Login here
                   </button>
                 </Link>

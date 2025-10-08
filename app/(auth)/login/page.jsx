@@ -15,10 +15,12 @@ import {
 import { Button } from "@heroui/react";
 import { createUser } from "@/lib/firebase/user/write";
 import Link from "next/link";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function Page() {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const [data, setData] = useState({});
@@ -49,6 +51,10 @@ export default function Page() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   // const handleForgetPassword = async () => {
@@ -106,15 +112,31 @@ export default function Page() {
                   className="w-full px-5 py-3 bg-gray-100 text-gray-800 placeholder:text-gray-900 border focus:outline-none rounded-lg"
                 />
 
-                <input
-                  type="password"
-                  placeholder="Password"
-                  name="user-password"
-                  id="user-password"
-                  value={data?.password}
-                  onChange={(e) => handleData("password", e.target.value)}
-                  className="w-full px-5 py-3 bg-gray-100 text-gray-800 placeholder:text-gray-900 border focus:outline-none rounded-lg"
-                />
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    name="user-password"
+                    id="user-password"
+                    value={data?.password}
+                    onChange={(e) => handleData("password", e.target.value)}
+                    className="w-full px-5 py-3 bg-gray-100 text-gray-800 placeholder:text-gray-900 border focus:outline-none rounded-lg"
+                  />
+                  <button
+                    type="button"
+                    onClick={toggleShowPassword}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-md hover:bg-gray-200 transition-colors cursor-pointer"
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
+                  >
+                    {showPassword ? (
+                      <Eye size={20} className="text-gray-600" />
+                    ) : (
+                      <EyeOff size={20} className="text-gray-600" />
+                    )}
+                  </button>
+                </div>
               </div>
               <Button
                 isLoading={isLoading}
@@ -142,7 +164,7 @@ export default function Page() {
               <div className="flex gap-2 items-center justify-center text-gray-500">
                 <h4>Dont’t have an account?</h4>
                 <Link href={`/signup`}>
-                  <button className="font-semibold text-sm text-gray-800 cursor-pointer rounded-xl w-full">
+                  <button className="font-semibold text-sm text-gray-700 hover:text-[#35B6B4] cursor-pointer rounded-xl w-full">
                     Sign up here
                   </button>
                 </Link>
