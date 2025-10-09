@@ -26,7 +26,7 @@ export async function getPendingPhysios() {
     where("isApproved", "==", false)
   );
   const snap = await getDocs(q);
-  return snap.docs.map((doc) => ({ uid: doc.id, ...doc.data() }))
+  return snap.docs.map((doc) => ({ uid: doc.id, ...doc.data() }));
 }
 
 // Get single Physio docs
@@ -39,7 +39,7 @@ export async function getPhysioDocuments(uid) {
         name: item.name,
         url: await getDownloadURL(item),
       }))
-    )
+    );
     return docs;
   } catch (error) {
     console.error("Error fetching Physios documents: ", error);
@@ -53,7 +53,6 @@ export async function getPhysioById(uid) {
   const snap = await getDocs(refDoc);
   return snap.exists() ? snap.data() : null;
 }
-
 
 // Realtime hook to get physio data
 export function usePhysioData(uid) {
@@ -143,6 +142,31 @@ export async function getPhysioOverview(uid) {
     experience: physio.experience ?? "N/A",
     isApproved: physio.isApproved ?? false,
   };
+}
+
+// Realtime hook for verificationDocs array
+export function usePhysioVerificationDocs(uid) {
+  const { data, error } = useSWRSubscription(
+    ["physioDocs", uid],
+    ([, uid], { next }) => {
+      if (!uid) return () => {};
+      const refDoc = doc(db, "user", uid);
+      const unsub = onSnapshot(
+        refDoc,
+        (snap) => {
+          const docs = snap.exists() ? snap.data().verificationDocs || [] : [];
+          next(null, docs);
+        },
+        (err) => next(err)
+      );
+      return () => unsub();
+    }
+  );
+  return {
+    docs: data || [],
+    isLoading: data === undefined,
+    error,
+  }
 }
 
 // import { db, storage } from "@/lib/firebase";

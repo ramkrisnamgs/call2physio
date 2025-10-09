@@ -1,12 +1,106 @@
 import { db, storage } from "@/lib/firebase";
-import { deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
+import {
+  deleteDoc,
+  doc,
+  getDoc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import {
   deleteObject,
   getDownloadURL,
   listAll,
   ref,
   uploadBytes,
+  uploadBytesResumable,
 } from "firebase/storage";
+
+// Upload physio document with category/type
+export async function uploadPhysioDocument(
+  uid,
+  file,
+  docType = "other",
+  onProgress
+) {
+  if (!uid || !file) throw new Error("UID and file are required.");
+
+  const storageRef = ref(
+    storage,
+    `physio_docs/${uid}/${Date.now()}_${file.name}`
+  );
+  const uploadTask = uploadBytesResumable(storageRef, file);
+
+  await new Promise((resolve, reject) => {
+    uploadTask.on(
+      "state_changed",
+      (snap) => {
+        const progress = Math.round(
+          (snap.bytesTransferred / snap.totalBytes) * 100
+        );
+        onProgress(progress);
+      },
+      reject,
+      resolve
+    );
+  });
+
+  const downloadURL = await getDownloadURL(storageRef);
+
+  const docMeta = {
+    name: file.name,
+    url: downloadURL,
+    fullPath: storageRef.fullPath,
+    docType,
+    status: "Pending",
+    uploadedAt: new Date().toISOString(),
+  };
+
+  const userRef = doc(db, "user", uid);
+  const snap = await getDoc(userRef);
+  if (snap.exists()) {
+    const data = snap.data();
+    const existingDocs = data.verificationDocs || [];
+    await updateDoc(userRef, {
+      verificationDocs: [...existingDocs, docMeta],
+      isApproved: false,
+      status: "pending",
+      // updatedAt: serverTimestamp(),
+    });
+  } else {
+    await updateDoc(userRef, {
+      verificationDocs: [docMeta],
+      isApproved: false,
+      status: "pending",
+      // updatedAt: serverTimestamp(),
+    });
+  }
+
+  return docMeta;
+}
+
+// Delete a physio document
+export async function deletePhysioDocument(uid, fileMeta) {
+  const fileRef = ref(storage, fileMeta.fullPath);
+  await deleteObject(fileRef);
+
+  const userRef = doc(db, "user", uid);
+  const snap = await getDoc(userRef);
+  if (!snap.exists()) return;
+
+  // Remove the document from the list
+  const updatedDocs = (snap.data().verificationDocs || []).filter(
+    (d) => d.fullPath !== fileMeta.fullPath
+  );
+  await updateDoc(userRef, {
+    verificationDocs: updatedDocs,
+  });
+}
+
+// Get download URL for file (on-demand)
+export async function getDownloadURLForPhysioDoc(uid, fileName) {
+  const fileRef = ref(storage, `physio_docs/${uid}/${fileName}`);
+  return await getDownloadURL(fileRef);
+}
 
 // Approve Physio
 export async function approvePhysio(uid) {
@@ -16,17 +110,17 @@ export async function approvePhysio(uid) {
     status: "Approved",
     approvedAt: serverTimestamp(),
   });
-};
+}
 
 // Reject Physio (optional: delete account)
 export async function rejectPhysio(uid) {
-    const ref = doc(db, "user", uid);
-    await updateDoc(ref, {
-      isApproved: false,
-      status: "Rejected",
-      rejected: true,
-      rejectedAt: serverTimestamp(),
-    })
+  const ref = doc(db, "user", uid);
+  await updateDoc(ref, {
+    isApproved: false,
+    status: "Rejected",
+    rejected: true,
+    rejectedAt: serverTimestamp(),
+  });
 }
 
 // Suspend physio
@@ -37,7 +131,7 @@ export async function suspendPhysio(uid) {
     status: "Suspended",
     isSuspended: true,
     suspendedAt: serverTimestamp(),
-  })
+  });
 }
 
 //Upload file to Storage
@@ -49,16 +143,16 @@ export const uploadPhysioFile = async (uid, file) => {
 };
 
 // Get the download URL for a specific file of a physio
-export async function getDownloadURLForPhysioDoc(uid, fileName) {
-  try {
-    const fileRef = ref(storage, `physio_docs/${uid}/${fileName}`)
-    const url = await getDownloadURL(fileRef);
-    return url;
-  } catch (error) {
-    console.error("Failed to get download URL:", error);
-    throw error;
-  }
-}
+// export async function getDownloadURLForPhysioDoc(uid, fileName) {
+//   try {
+//     const fileRef = ref(storage, `physio_docs/${uid}/${fileName}`);
+//     const url = await getDownloadURL(fileRef);
+//     return url;
+//   } catch (error) {
+//     console.error("Failed to get download URL:", error);
+//     throw error;
+//   }
+// }
 
 //Delete a file from Storage
 export const deletePhysioFile = async (uid, fileName) => {
