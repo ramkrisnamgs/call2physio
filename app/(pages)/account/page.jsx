@@ -291,9 +291,12 @@ export default function AccountPage() {
               </div>
               <div className="flex flex-col items-start gap-1">
                 <div className="flex items-center justify-center gap-2">
-                  <h2 className="text-2xl font-bold text-gray-800">
+                  <h2 className="text-2xl font-bold text-gray-800 hidden md:block">
                     {`${watchedFirstName} ${watchedLastName}`.trim() ||
                       userData?.displayName}
+                  </h2>
+                  <h2 className="text-2xl font-bold text-gray-800 md:hidden">
+                    {watchedFirstName || userData?.displayName?.split(" ")[0]}
                   </h2>
                   <p className="px-5 py-1 flex items-center justify-center text-sm font-medium bg-[#35B6B4]/10 text-[#003A70] rounded-full">
                     {userData?.role}

@@ -5,6 +5,7 @@ import { getPhysioDocuments, listPhysioFiles } from "@/lib/firebase/physio/read"
 import { getDownloadURL } from "firebase/storage";
 import { storage } from "@/lib/firebase";
 import { ref } from "firebase/storage";
+import { X } from "lucide-react";
 
 export default function PhysioDetailsModal({ physio, onClose, refresh }) {
   const [docs, setDocs] = useState([]);
@@ -35,19 +36,19 @@ export default function PhysioDetailsModal({ physio, onClose, refresh }) {
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      className="fixed inset-0 backdrop-blur-sm bg-opacity-80 flex items-center justify-center z-50"
       onClick={onClose} // close if user clicks outside modal
     >
       <div
-        className="bg-white p-6 rounded-lg w-full max-w-2xl relative overflow-y-auto max-h-[80vh]"
+        className="bg-white p-6 rounded-lg w-full max-w-2xl relative overflow-y-auto max-h-[80vh] border"
         onClick={(e) => e.stopPropagation()} // prevent closing inside
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-gray-600 hover:text-black"
+          className="absolute top-3 right-3 p-1.5 rounded-md hover:bg-gray-200 hover:rotate-45 transition-colors cursor-pointer"
         >
-          ✕
+          <X size={20} />
         </button>
 
         {/* Physio Info */}

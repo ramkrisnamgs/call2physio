@@ -5,8 +5,10 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Popup() {
+  const {user} = useAuth();
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -89,17 +91,31 @@ export default function Popup() {
                   </div>
                 </div>
 
-                <Link href="/appointment" className="inline-block w-full md:w-auto mt-2">
-                  <button className="group relative w-full md:w-auto bg-[#35B6B4] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg overflow-hidden text-xs sm:text-sm">
-                    <span className="relative z-10 flex items-center justify-center gap-2 font-medium">
-                      Schedule Consultation
-                      <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                      </svg>
-                    </span>
-                    <div className="absolute inset-0 bg-[#22aaa8] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
-                  </button>
-                </Link>
+                {user ? (
+                  <Link href="/appointment" className="inline-block w-full md:w-auto mt-2">
+                    <button className="group relative w-full bg-[#35B6B4] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg overflow-hidden text-xs sm:text-sm">
+                      <span className="relative z-10 flex items-center justify-center gap-2 font-medium">
+                        Schedule Consultation
+                        <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                      </span>
+                      <div className="absolute inset-0 bg-[#22aaa8] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                    </button>
+                  </Link>
+                ) : (
+                  <Link href="/signup?role=patient" className="inline-block w-full md:w-auto mt-2">
+                    <button className="group relative w-full bg-[#35B6B4] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg overflow-hidden text-xs sm:text-sm">
+                      <span className="relative z-10 flex items-center justify-center gap-2 font-medium">
+                        Signup Now
+                        <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                      </span>
+                      <div className="absolute inset-0 bg-[#22aaa8] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                    </button>
+                  </Link>
+                )}
               </div>
 
               {/* Right - CTA */}
